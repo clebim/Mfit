@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "@rocketseat/eslint-config/node"
+  ],
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "no-useless-constructor": "off",
+    "no-undef": "off",
+    "eslint-disable dot-notation": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "args": "none"
+      }
+    ],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["**/*.test.ts", "**/*.spec.ts", "**/*.mock.ts", "jest.config.ts", "jest.setup.ts"]
+      }
+    ]
+  }
+}

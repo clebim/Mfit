@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "outDir": "dist",
+    "allowJs": true,
+    "strict": false,
+    "declaration": true,
+    "esModuleInterop": true,
+    "removeComments": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@adapters/*": ["./src/adapters/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@external/*": ["./src/external/*"],
+      "@main/*": ["./src/main/*"],
+      "@usecases/*": ["./src/usecases/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@tests/*": ["./src/tests/*"],
+      "@core/*": ["./src/core/*"]
+    }
+  },
+  "exclude": ["**/*/.d.ts"]
+}
