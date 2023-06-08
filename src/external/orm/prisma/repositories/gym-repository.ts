@@ -4,9 +4,12 @@ import { prismaClient } from '../index'
 
 export class PrismaCheckInRepository implements CheckInRepository {
   async save(data: CheckIn): Promise<CheckIn> {
+    const dto = data.toDTO()
+
     const newCheckIn = await prismaClient.checkIn.create({
       data: {
-        userId: data.toDTO().userId,
+        userId: dto.userId,
+        gymId: dto.gymId,
       },
     })
 
