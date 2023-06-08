@@ -43,6 +43,7 @@
     "fastify": "^4.17.0",
     "flatted": "^3.2.7",
     "joi": "^17.9.2",
+    "moment": "^2.29.4",
     "reflect-metadata": "^0.1.13",
     "winston": "^3.8.2"
   }

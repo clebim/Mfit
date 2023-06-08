@@ -1,5 +1,7 @@
 import { CheckIn, CheckInProperties } from '@entities/check-in'
+import { Prisma } from '@prisma/client'
 import { CheckInRepository } from '@usecases/port/repositories'
+import { FindManyCheckInsOptions } from '@usecases/port/repositories/check-in-repository'
 import { prismaClient } from '../index'
 
 export class PrismaCheckInRepository implements CheckInRepository {
@@ -16,11 +18,50 @@ export class PrismaCheckInRepository implements CheckInRepository {
     return CheckIn.from(newCheckIn as CheckInProperties)
   }
 
-  findByUserIdOnDate(userId: string, date: Date): Promise<CheckIn> {
-    throw new Error('Method not implemented.')
+  async findByUserIdOnDate(
+    userId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<CheckIn | null> {
+    const checkIn = await prismaClient.checkIn.findFirst({
+      where: {
+        userId,
+        createdAt: {
+          gte: startDate,
+          lte: endDate,
+        },
+      },
+    })
+
+    if (!checkIn) {
+      return null
+    }
+
+    return CheckIn.from(checkIn)
   }
 
-  findManyByUserId(userId: string): Promise<CheckIn[]> {
-    throw new Error('Method not implemented.')
+  async findManyByUserId(options: FindManyCheckInsOptions): Promise<CheckIn[]> {
+    const { userId, startDate, endDate } = options
+    const skip = options.skip ?? 0
+    const take = options.take ?? 20
+
+    const args: Prisma.CheckInFindManyArgs = {
+      where: {
+        userId,
+      },
+      skip,
+      take,
+    }
+
+    if (startDate && endDate) {
+      args.where.createdAt = {
+        gte: startDate,
+        lte: endDate,
+      }
+    }
+
+    const checkIns = await prismaClient.checkIn.findMany(args)
+
+    return checkIns.map((checkIn) => CheckIn.from(checkIn))
   }
 }

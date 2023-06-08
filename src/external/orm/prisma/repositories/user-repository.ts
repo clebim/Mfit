@@ -15,22 +15,30 @@ export class PrismaUserRepository implements UserRepository {
     return User.from(updatedUser as any)
   }
 
-  async findOneById(id: string): Promise<User> {
+  async findOneById(id: string): Promise<User  | null> {
     const user = await prismaClient.user.findUnique({
       where: {
         id
       }
     })
 
+    if(!user) {
+      return null
+    }
+
     return User.from(user as any)
   }
 
-  async findOneByEmail(email: string): Promise<User> {
+  async findOneByEmail(email: string): Promise<User | null> {
     const user = await prismaClient.user.findUnique({
       where: {
         email,
       }
     })
+
+    if(!user) {
+      return null
+    }
 
     return User.from(user as any)
   }
