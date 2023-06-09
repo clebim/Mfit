@@ -1,5 +1,6 @@
 import { AuthenticateRequest } from '@usecases/authentication/authenticate/interfaces/authenticate-request'
 import { CreateCheckInRequest } from '@usecases/check-in/create-check-in-use-case/interfaces/create-check-in-request'
+import { FetchUserCheckInsHistoryRequest } from '@usecases/check-in/fetch-user-check-ins-history/interfaces/fetch-user-check-ins-history-request'
 import { CreateGymRequest } from '@usecases/gym/v1/create-gym-use-case/interfaces/create-gym-request'
 import { RequestValidator } from '@usecases/port/services'
 import { CreateUserRequest } from '@usecases/users/v1/create-user-use-case/interfaces/create-user-request'
@@ -28,3 +29,9 @@ export const createGymValidatorMock: MockProxy<
 > &
   RequestValidator<CreateGymRequest> =
   mock<RequestValidator<CreateGymRequest>>()
+
+export const fetchUserCheckInsHistoryValidatorMock: MockProxy<
+  RequestValidator<FetchUserCheckInsHistoryRequest>
+> &
+  RequestValidator<FetchUserCheckInsHistoryRequest> =
+  mock<RequestValidator<FetchUserCheckInsHistoryRequest>>()

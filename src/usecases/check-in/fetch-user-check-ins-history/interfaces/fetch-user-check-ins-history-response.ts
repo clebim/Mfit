@@ -3,7 +3,11 @@ import { InvalidDataError } from '@usecases/errors'
 import { Either } from '@usecases/helpers/either'
 
 export interface FetchUserCheckInsHistoryResponseData {
-  items: CheckInProperties
+  items: CheckInProperties[]
+  page: number
+  totalItemsPerPage: number
+  totalPages: number
+  totalItems: number
 }
 
 export type FetchUserCheckInsHistoryResponse = Either<

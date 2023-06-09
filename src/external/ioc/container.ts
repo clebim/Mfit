@@ -1,4 +1,5 @@
 import { CreateUserController } from '@adapters/controllers/v1/users/create-user-controller'
+import { MomentDateService } from '@external/date/moment'
 import { BcryptService } from '@external/encryption/bcrypt'
 import { MfitLogger } from '@external/logger'
 import { prismaClient } from '@external/orm/prisma'
@@ -34,6 +35,10 @@ mFitContainer.register('Logger', MfitLogger, {
 })
 
 mFitContainer.register('EncryptionService', BcryptService, {
+  lifecycle: Lifecycle.Singleton,
+})
+
+mFitContainer.register('DateService', MomentDateService, {
   lifecycle: Lifecycle.Singleton,
 })
 

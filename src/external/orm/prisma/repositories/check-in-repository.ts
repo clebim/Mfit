@@ -1,7 +1,10 @@
 import { CheckIn, CheckInProperties } from '@entities/check-in'
 import { Prisma } from '@prisma/client'
 import { CheckInRepository } from '@usecases/port/repositories'
-import { FindManyCheckInsOptions } from '@usecases/port/repositories/check-in-repository'
+import {
+  FindManyCheckIns,
+  FindManyCheckInsOptions,
+} from '@usecases/port/repositories/check-in-repository'
 import { prismaClient } from '../index'
 
 export class PrismaCheckInRepository implements CheckInRepository {
@@ -40,10 +43,10 @@ export class PrismaCheckInRepository implements CheckInRepository {
     return CheckIn.from(checkIn)
   }
 
-  async findManyByUserId(options: FindManyCheckInsOptions): Promise<CheckIn[]> {
-    const { userId, startDate, endDate } = options
-    const skip = options.skip ?? 0
-    const take = options.take ?? 20
+  async findManyByUserId(
+    options: FindManyCheckInsOptions,
+  ): Promise<FindManyCheckIns> {
+    const { userId, startDate, endDate, skip, take, order, orderBy } = options
 
     const args: Prisma.CheckInFindManyArgs = {
       where: {
@@ -51,6 +54,11 @@ export class PrismaCheckInRepository implements CheckInRepository {
       },
       skip,
       take,
+      orderBy: {
+        [orderBy]: {
+          sort: order.toLowerCase(),
+        },
+      },
     }
 
     if (startDate && endDate) {
@@ -60,8 +68,28 @@ export class PrismaCheckInRepository implements CheckInRepository {
       }
     }
 
-    const checkIns = await prismaClient.checkIn.findMany(args)
+    if (startDate && !endDate) {
+      args.where.createdAt = {
+        gte: startDate,
+      }
+    }
 
-    return checkIns.map((checkIn) => CheckIn.from(checkIn))
+    if (!startDate && endDate) {
+      args.where.createdAt = {
+        lte: endDate,
+      }
+    }
+
+    const [checkIns, count] = await prismaClient.$transaction([
+      prismaClient.checkIn.findMany(args),
+      prismaClient.checkIn.count({
+        where: args.where,
+      }),
+    ])
+
+    return {
+      items: checkIns.map((checkIn) => CheckIn.from(checkIn)),
+      count,
+    }
   }
 }
