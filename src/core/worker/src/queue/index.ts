@@ -1,6 +1,6 @@
 /* eslint-disable no-dupe-class-members */
 import { resolve } from 'node:path'
-import { Worker } from 'node:worker_threads'
+import { Worker as NodeWorker } from 'node:worker_threads'
 
 type QueueOptions = {
   workers?: number
@@ -21,7 +21,7 @@ type ExtendedFunctions = {
   setContext: (context: string) => void
 }
 
-export interface QueueCore {
+export interface WorkerCore {
   on(event: 'data', listener: <T>(data: T, context: string) => void): void
   on(event: 'error', listener: (error: Error, context: string) => void): void
   on(event: 'finish', listener: () => void): void
@@ -33,7 +33,7 @@ export interface QueueCore {
   addJob(fnPath: string, ...args: any[]): ExtendedFunctions
 }
 
-export class Queue implements QueueCore {
+export class Worker implements WorkerCore {
   private tasks: TaskData[]
   private runningTasks: number
   private workers: number
@@ -83,7 +83,7 @@ export class Queue implements QueueCore {
   private processTasks() {
     while (this.runningTasks < this.workers && this.tasks.length > 0) {
       const task = this.tasks.shift() as TaskData
-      const worker = new Worker(
+      const worker = new NodeWorker(
         resolve(__dirname, '..', 'worker', `index.${this.extensionFile}`),
       )
       const filePath = this.getFilePath(task.fnPath)
