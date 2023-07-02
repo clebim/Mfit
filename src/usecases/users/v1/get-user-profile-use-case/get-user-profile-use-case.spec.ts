@@ -29,5 +29,19 @@ describe('CreateUserUseCase', () => {
       expect(response.value).toHaveProperty('email')
       expect(response.value).not.toHaveProperty('password')
     })
+
+    it('Should return a error because a fatal error', async () => {
+      const request = {
+        userId: faker.string.uuid(),
+      }
+
+      userRepositoryMock.findOneById.mockRejectedValue(new Error('Fatal error'))
+
+      const response = await useCase.execute(request)
+
+      expect(userRepositoryMock.findOneById).toBeCalled()
+      expect(userRepositoryMock.findOneById).toBeCalledWith(request.userId)
+      expect(response.isFailure()).toBeTruthy()
+    })
   })
 })

@@ -39,7 +39,7 @@ export class GetUserProfile
       })
     } catch (error) {
       this.logger.error('Falha ao buscar usuário no banco de dados %o', error)
-      this.failure(error)
+      return this.failure(error)
     }
   }
 }

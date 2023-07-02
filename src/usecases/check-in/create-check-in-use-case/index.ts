@@ -81,9 +81,11 @@ export class CreateCheckIn
         return this.failure(new GymNotFoundError())
       }
 
+      const today = new Date()
       const checkInOnSameDay = await this.checkInRepository.findByUserIdOnDate(
         userId,
-        new Date(),
+        today,
+        today,
       )
 
       if (checkInOnSameDay) {
