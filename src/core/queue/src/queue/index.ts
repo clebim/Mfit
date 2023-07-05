@@ -46,12 +46,20 @@ export class Queue implements QueueCore {
   constructor(props?: QueueOptions) {
     this.tasks = []
     this.runningTasks = 0
-    this.workers = props?.workers ?? 1
     this.retries = props?.retries ?? 1
+    this.workers = props?.workers ?? 1
     this.delay = props?.delay ?? 1 * 60 * 60 // 1 minuto de delay
     this.extensionFile = process.env.NODE_ENV === 'dev' ? 'ts' : 'js'
     this.events = new Map()
     this.contexts = new Map()
+
+    if (props.retries) {
+      this.retries = props.retries < 1 ? 1 : props.retries
+    }
+
+    if (props.workers) {
+      this.workers = props.workers < 1 ? 1 : props.workers
+    }
   }
 
   private getFilePath(path: string) {
