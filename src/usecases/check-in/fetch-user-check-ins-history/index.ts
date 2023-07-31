@@ -36,11 +36,11 @@ export class FetchUserCheckInsHistory
   ): Promise<FetchUserCheckInsHistoryResponse> {
     try {
       this.validate(request)
+
       const itemsPerPage = request.totalItemsPerPage ?? 20
       const page = request.page ?? 1
       const fetchOptions = {
         userId: request.userId,
-        page,
         startDate:
           request.startDate ??
           this.dateService.sub(new Date(), 7, 'days').toUtc().toDate(),
@@ -48,6 +48,7 @@ export class FetchUserCheckInsHistory
         order: request.order ?? 'DESC',
         orderBy: request.orderBy ?? 'createdAt',
         skip: itemsPerPage * (page - 1),
+        take: itemsPerPage,
       }
 
       this.logger.info('Buscando checkIns do usuário %o', fetchOptions)

@@ -1,12 +1,5 @@
 import { CheckIn } from '@entities/check-in'
-import { FindManyRepositoryResponse } from './interfaces/find-many-repository-response'
-
-type FindManyOptions = {
-  skip?: number
-  take?: number
-  order?: 'ASC' | 'DESC'
-  orderBy?: string
-}
+import { FindManyOptions, FindManyRepositoryResponse } from './shared'
 
 export type FindManyCheckInsOptions = {
   startDate?: Date

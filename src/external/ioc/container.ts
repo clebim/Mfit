@@ -7,6 +7,8 @@ import { PrismaUserRepository } from '@external/orm/prisma/repositories/user-rep
 import { CreateUserRequestValidator } from '@external/validators/joi-validator/create-user-validator'
 import { CreateUser } from '@usecases/users/v1/create-user-use-case'
 import { DependencyContainer, Lifecycle } from '../../core/dependency-injection'
+import { PrismaCheckInRepository } from '@external/orm/prisma/repositories/check-in-repository'
+import { PrismaGymRepository } from '@external/orm/prisma/repositories/gym-repository'
 
 export const mFitContainer = new DependencyContainer()
 
@@ -17,6 +19,14 @@ mFitContainer.register('CreateUserController', CreateUserController, {
 
 // REPOSITORIES
 mFitContainer.register('UserRepository', PrismaUserRepository, {
+  lifecycle: Lifecycle.Singleton,
+})
+
+mFitContainer.register('CheckInRepository', PrismaCheckInRepository, {
+  lifecycle: Lifecycle.Singleton,
+})
+
+mFitContainer.register('GymRepository', PrismaGymRepository, {
   lifecycle: Lifecycle.Singleton,
 })
 

@@ -1,11 +1,11 @@
 import { checkInRepositoryMock } from '@tests/mocks/repositories.mock'
 import { loggerServiceMock } from '@tests/mocks/services.mock'
 import { mockReset } from 'jest-mock-extended'
-import { GetUserMetrics, GetUserMetricsUseCase } from '.'
+import { GetUserMetrics, GetUserMetricsUseCase } from './index'
 import { faker } from '@faker-js/faker'
 import { InternalServerError } from '@usecases/errors'
 
-describe('Fetch user check-ins history use case', () => {
+describe('Get user check-ins metrics use case', () => {
   let useCase: GetUserMetricsUseCase
   beforeEach(() => {
     mockReset(checkInRepositoryMock)

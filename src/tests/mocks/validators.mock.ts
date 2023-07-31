@@ -2,6 +2,7 @@ import { AuthenticateRequest } from '@usecases/authentication/authenticate/inter
 import { CreateCheckInRequest } from '@usecases/check-in/create-check-in-use-case/interfaces/create-check-in-request'
 import { FetchUserCheckInsHistoryRequest } from '@usecases/check-in/fetch-user-check-ins-history/interfaces/fetch-user-check-ins-history-request'
 import { CreateGymRequest } from '@usecases/gym/v1/create-gym-use-case/interfaces/create-gym-request'
+import { SearchGymsRequest } from '@usecases/gym/v1/search-gyms/interfaces/search-gyms-request'
 import { RequestValidator } from '@usecases/port/services'
 import { CreateUserRequest } from '@usecases/users/v1/create-user-use-case/interfaces/create-user-request'
 import { MockProxy, mock } from 'jest-mock-extended'
@@ -35,3 +36,9 @@ export const fetchUserCheckInsHistoryValidatorMock: MockProxy<
 > &
   RequestValidator<FetchUserCheckInsHistoryRequest> =
   mock<RequestValidator<FetchUserCheckInsHistoryRequest>>()
+
+export const searchGymValidatorMock: MockProxy<
+  RequestValidator<SearchGymsRequest>
+> &
+  RequestValidator<SearchGymsRequest> =
+  mock<RequestValidator<SearchGymsRequest>>()
