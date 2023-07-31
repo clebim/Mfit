@@ -66,6 +66,7 @@ describe('Create check in use case', () => {
       expect(checkInRepositoryMock.findByUserIdOnDate).toBeCalledWith(
         userMock.getId(),
         new Date(),
+        new Date(),
       )
       expect(checkInRepositoryMock.save).toBeCalled()
       expect(gymRepositoryMock.findById).toBeCalled()

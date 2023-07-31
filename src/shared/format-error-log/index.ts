@@ -3,7 +3,7 @@ export const formatErrorLog = (error: Error) => {
 
   logger.stack = error.stack
   logger.name = error.name
-  logger.name = error.message
+  logger.message = error.message
 
   const publicProperties = Object.entries(error).reduce(
     (obj: any, item: any[]) => {

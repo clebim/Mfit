@@ -50,19 +50,12 @@ export class PrismaGymRepository implements GymRepository {
   }
 
   async searchMany(options: FindManyGymsOptions): Promise<FindManyGyms> {
-    const { title, skip, take, order, orderBy } = options
+    const { title } = options
 
     const args = {
       where: {
         title: {
           contains: title,
-        },
-      },
-      skip,
-      take,
-      orderBy: {
-        [orderBy]: {
-          sort: order.toLowerCase(),
         },
       },
     }

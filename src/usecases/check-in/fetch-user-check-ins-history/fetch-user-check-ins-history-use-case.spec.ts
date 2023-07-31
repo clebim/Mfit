@@ -38,12 +38,14 @@ describe('Fetch user check-ins history use case', () => {
       const { isSuccess } = await useCase.execute(request)
 
       Reflect.deleteProperty(request, 'totalItemsPerPage')
+      Reflect.deleteProperty(request, 'page')
 
       expect(isSuccess).toBeTruthy()
       expect(checkInRepositoryMock.findManyByUserId).toBeCalled()
       expect(checkInRepositoryMock.findManyByUserId).toBeCalledWith({
         ...request,
         skip: 0,
+        take: 20,
       })
     })
 

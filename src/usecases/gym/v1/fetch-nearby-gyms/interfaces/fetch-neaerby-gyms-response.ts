@@ -6,7 +6,7 @@ export interface FetchNearbyGymsResponseData {
   gyms: GymProperties[]
 }
 
-export type SearchGymsResponse = Either<
+export type FetchNearbyGymsResponse = Either<
   InvalidDataError,
   FetchNearbyGymsResponseData
 >
