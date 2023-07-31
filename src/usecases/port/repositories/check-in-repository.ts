@@ -26,4 +26,5 @@ export interface CheckInRepository {
     endDate: Date,
   ): Promise<CheckIn | null>
   findManyByUserId(options: FindManyCheckInsOptions): Promise<FindManyCheckIns>
+  countByUserId(userId: string): Promise<number>
 }

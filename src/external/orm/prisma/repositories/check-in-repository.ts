@@ -8,6 +8,15 @@ import {
 import { prismaClient } from '../index'
 
 export class PrismaCheckInRepository implements CheckInRepository {
+  async countByUserId(userId: string): Promise<number> {
+    const count = await prismaClient.checkIn.count({
+      where: {
+        userId,
+      },
+    })
+    return count
+  }
+
   async save(data: CheckIn): Promise<CheckIn> {
     const dto = data.toDTO()
 
