@@ -13,3 +13,7 @@ app()
   .then(() => {
     console.log(`Worker ${process.pid} running server on port ${port} 🚀🚀🚀`)
   })
+  .catch((error) => {
+    console.log('Error starting application 💣💣💣')
+    console.log(error)
+  })

@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { changeValuesMock } from '@tests/helper'
-import { FetchUserCheckInsHistoryRequest } from '@usecases/check-in/fetch-user-check-ins-history/interfaces/fetch-user-check-ins-history-request'
+import { FetchUserCheckInsHistoryRequest } from '@usecases/check-in/fetch-user-check-ins-history-use-case/interfaces/fetch-user-check-ins-history-request'
 
 export const createFetchUserCheckInsHistoryMock = (
   valueHasToBeReplaced?: Partial<FetchUserCheckInsHistoryRequest>,
