@@ -20,7 +20,7 @@ export class MomentDateService implements DateService {
     return this.buildResponse(momentDate)
   }
 
-  public newDate(): DateMethods {
+  public now(): DateMethods {
     return this.buildResponse(moment())
   }
 }
