@@ -72,4 +72,13 @@ export class PrismaGymRepository implements GymRepository {
       count,
     }
   }
+
+  async findManyByUserId(userId: string): Promise<Gym[]> {
+    const gyms = await prismaClient.gym.findMany({
+      where: {
+        userId,
+      },
+    })
+    return gyms.map((gym) => Gym.from(gym as unknown as GymProperties))
+  }
 }

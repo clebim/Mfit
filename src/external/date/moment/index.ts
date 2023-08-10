@@ -16,8 +16,21 @@ export class MomentDateService implements DateService {
 
   public sub(date: Date | string, amount: number, unit: Unit) {
     const momentDate = moment(date).subtract(amount, unit)
-
     return this.buildResponse(momentDate)
+  }
+
+  public isAfterNow(date: string | Date): boolean {
+    return moment().isAfter(date)
+  }
+
+  public diff(
+    diff: string | Date,
+    unit: Unit,
+    initDate?: string | Date,
+  ): number {
+    const initDateAux = initDate ?? moment()
+    const dateDiff = moment(diff)
+    return moment(initDateAux).diff(dateDiff, unit)
   }
 
   public now(): DateMethods {

@@ -44,7 +44,7 @@ export class FetchUserCheckInsHistory
         startDate:
           request.startDate ??
           this.dateService.sub(new Date(), 7, 'days').toUtc().toDate(),
-        endDate: request.endDate ?? this.dateService.newDate().toUtc().toDate(),
+        endDate: request.endDate ?? this.dateService.now().toUtc().toDate(),
         order: request.order ?? 'DESC',
         orderBy: request.orderBy ?? 'createdAt',
         skip: itemsPerPage * (page - 1),

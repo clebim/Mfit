@@ -21,4 +21,5 @@ export interface GymRepository {
   findById(id: string): Promise<Gym | undefined>
   searchMany(options: FindManyGymsOptions): Promise<FindManyGyms>
   findManyNearBy(props: FindManyNearByProps): Promise<Gym[]>
+  findManyByUserId(userId: string): Promise<Gym[]>
 }
